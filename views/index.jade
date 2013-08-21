@@ -1,0 +1,24 @@
+doctype 5
+html
+	head
+		meta(charset="utf-8")
+		title Test
+		link(rel="stylesheet", href="css/bootstrap.min.css")
+	body
+		.container
+			.row
+				.col-md-12
+					table.table.table-hover
+						tr
+							th Place
+							th Surname
+							th Name
+							th CreatedAt
+							th updatedAt 
+						for item in data
+							tr
+								td= item.place
+								td= item.surname
+								td= item.name
+								td= item.createdAt
+								td= item.updatedAt
