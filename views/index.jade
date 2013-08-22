@@ -1,25 +1,73 @@
 doctype 5
-html
+html(ng-app="app")
 	head
 		meta(charset="utf-8")
 		title Test
 		link(rel="stylesheet", href="css/bootstrap.min.css")
+		link(rel="stylesheet", href="css/datepicker.css")
+
+		script(src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js")
 		script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js")
 	body
 		.container
 			.row
-				.col-md-12
+				.span12(ng-controller="MainController")
+					.well.sidebar-nav(style="margin:30px 0;")
+						//- datepicker
+						.control-group(style="float:left;margin-right:70px;")
+							label.label(for="date") Дата
+							br
+							.input-append.date#dp3
+								input(type="text", ng-model="date")#date
+								button(type="button",class="btn",data-toggle="datepicker")
+									i(class="icon-calendar")
+						//- city
+						.control-group(style="float:left;margin-right:70px;")
+							label.label(for="city") Місто
+							br
+							select.span3#city(ng-model="town")
+								option(value="") All
+								option(ng-repeat="item in items | unique:'city' | filter:date", value="{{item.city}}") {{item.city}}
+						//- place
+						.control-group
+							label.label(for="place") Заклад
+							br
+							select.span3#place(ng-model="place")
+								option(value="") All
+								option(ng-repeat="item in items | unique:'place' | filter:town | filter:date", value="{{item.place}}") {{item.place}}
 					table.table.table-hover
 						tr
-							th Place
-							th Surname
-							th Name
-							th CreatedAt
-							th updatedAt 
-						for item in data
-							tr
-								td= item.place
-								td= item.surname
-								td= item.name
-								td= item.createdAt
-								td= item.updatedAt
+							//- Date
+							th Дата
+							//- time
+							th Початок
+							//- duration
+							th Тривалість
+							//- quiz_result 
+							th Відмова
+							//- consultant 
+							th Консультант
+							//- driver 
+							th Водій
+							//- place
+							th Заклад
+							//- city
+							th Мiсто
+							//- prefer
+							th Перевага
+							//- | filter:town | filter: place |
+						tr(ng-repeat="item in items | filter:date | filter:town | filter:place")
+							td {{item.Date}}
+							td {{item.time}}
+							td {{item.duration}}
+							td {{item.quiz_result}}
+							td {{item.consultant}}
+							td {{item.driver}}
+							td {{item.place}}
+							td {{item.city}}
+							td {{item.prefer}}
+
+		script(src="js/bootstrap.min.js")
+		script(src="js/bootstrap-datepicker.js")
+		script(src="js/index.js")
+		script(src="js/filters.js")
